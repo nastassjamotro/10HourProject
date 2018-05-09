@@ -1,5 +1,7 @@
 // Nastassja Motro 5/8/18
 
+// models a playing die
+
 import java.util.Random;
 
 public class Die {
