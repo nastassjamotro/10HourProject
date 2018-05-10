@@ -4,7 +4,7 @@
 ## Click on the image in order to find out more details about the program
 
 ## Hangman!
-[![Alt text](https://nastassjamotro.github.io/10HourProject/img/Hangman.png "Hangman Game")](https://nastassjamotro.github.io/10HourProject/Die)
+[![Alt text](https://nastassjamotro.github.io/10HourProject/img/Hangman.png "Hangman Game")](https://nastassjamotro.github.io/10HourProject/HangMan)
 
 ### Brief Review of the Game
 - Hangman was originally a paper and pencil guessing game for two or more players. I've decided to turn this game into a program which can be played by a single person with just the necessity of an IDE that can run Java - no GUI interfaces involved.
