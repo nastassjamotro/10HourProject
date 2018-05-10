@@ -1,63 +1,77 @@
-// Nastassja Motro 5/8/18
+// Nastassja Motro 5/9/18
 
-// models a playing die
+// Hangman Game!
 
-import java.util.Random;
+import java.util.Scanner;
+import java.util.Arrays;
 
 public class Die {
-  
-  private static Random numberGenerator = new Random(); // ourRandNumGen
-  private final int mySide; // iMyNumSides
-  private int result; // iMyResult
-  public static final int SIDES = 6; //DEFAULT_SIDES
-  
-  public Die() {
-    this(SIDES);
+  public static void main(String[] args) {
+    String[] words = {"writer", "that", "program"};
+    int randomWordNumber = (int)(Math.random() * words.length);
+    char[] enteredLetters = new char[words[randomWordNumber].length()];
+    int triesCount = 0;
+    boolean wordIsGuessed = false;
+    do {
+      switch (enterLetter(words[randomWordNumber], enteredLetters)) {
+        case 0:
+          triesCount++;
+          break;
+        case 1:
+          triesCount++;
+          break;
+        case 2:
+          break;
+        case 3:
+          wordIsGuessed = true;
+          break;
+      }
+    } while (! wordIsGuessed);
+    System.out.println("\nThe word is " + words[randomWordNumber] + " You missed " + (triesCount - findEmptyPosition(enteredLetters)) + " time(s)");
   }
   
-  public Die(int numberOfSides) {
-    assert numberOfSides > 1: "Violation of condition: numberOfSides = " + numberOfSides + "numberOfSides must be greather than 1";
-    mySide = numberOfSides;
-    result = 1;
-    assert getResult() == 1 && getNumberOfSides() == numberOfSides;
-  }
-  
-  public Die(int numberOfSides, int endResult) {
-    assert numberOfSides > 1 && 1 <= endResult && endResult <= numberofSides: "Violation of condition";
-    mySide = numberOfSides;
-    result = endResult;
-  }
-  
-  public int roll() {
-    result = numberGenerator.nextInt(mySide) + 1;
-    assert( 1 <= getResult()) && (getResult() <= getNumberOfSides());
-    return result;
-  }
-  
-  public int getNumberOfSides() {
-    return mySide
-  }
-  
-  public int getResult() {
-    return result;
-  }
-  
-  public boolean equals(Object otherObject) {
-    boolean endResult = true;
-    if(otherObject == null) {
-      endResult = false;
-    } else if(this == otherObject) {
-      endResult = true;
-    } else if (this.getClass() != otherObject.getClass()) {
-      endResult = false;
-    } else {
-      Die otherDie = (Die)otherObject;
-      endResult = this.result == otherDie.result && this.mySide == otherDie.mySide;
+  public static int enterLetter(String word, char[] enteredLetters) {
+    System.out.print("Guess a letter in the word: ");
+    if(! printWord(word, enteredLetters)) {
+      return 3;
     }
-    return endResult;
+    System.out.print(" > ");
+    Scanner scan = new Scanner(System.in);
+    int emptyPosition = findEmptyPosition(enteredLetters);
+    char userInput = scan.nextLine().charAt(0);
+    if (inEnteredLetters(userInput, enteredLetters)) {
+      System.out.println(userInput + " is already in the word");
+      return 2;
+    } else if (word.contains(String.valueOf(userInput))) {
+      enteredLetters[emptyPosition] = userInput;
+      return 1;
+    } else {
+      System.out.println(userInput + " is not in the word");
+      return 0;
+    }
   }
   
-  public String toString() {
-    return "Number of Sides " + getNumberOfSides() + " result " + getResult();
+  public static boolean printWord(String word, char[] enteredLetters) {
+    boolean astPrinted = false;
+    for (int i = 0; i < word.length(); i ++) {
+      char letter = word.charAt(i);
+      if (inEnteredLetters(letter, enteredLetters)) {
+        System.out.print(letter);
+      } else {
+        System.out.print('*');
+        astPrinted = true;
+      }
+    }
+    return astPrinted;
+  }
+  
+  public static boolean inEnteredLetters(char letter, char[] enteredLetters) {
+    return new String(enteredLetters).contains(String.valueOf(letter));
+  }
+  
+  public static int findEmptyPosition(char[] enteredLetters) {
+    int i = 0;
+    while (enteredLetters[i] != '\u0000') i++;
+    return i;
   }
 }
