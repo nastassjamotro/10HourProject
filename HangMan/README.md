@@ -1,5 +1,5 @@
 # HangMan Game
-![alt text](https://nastassjamotro.github.io/10HourProject/img/Hangman.png)
+![alt text](https://nastassjamotro.github.io/10HourProject/img/hang.png)
 
 This is a simple game of hangman without any lovely visuals created of the diagram of the person gaining more body parts as the player continually loses. It uses just simple Java and no GUI application is to be seen here.
 
